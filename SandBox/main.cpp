@@ -4,10 +4,7 @@
 struct Base
 {
 	//Rule of 0
-	virtual ~Base()
-	{
-		std::cout << "~Base \n";
-	}
+	virtual ~Base() = default;
 	Base() = default;
 
 	Base& operator=(const Base&) = default;
@@ -16,7 +13,7 @@ struct Base
 	Base& operator=(Base&&) = default;
 	Base(Base&&) = default;
 
-	virtual void do_something()
+	virtual void do_something() const
 	{
 		std::cout << "Base \n";
 	}
@@ -24,26 +21,20 @@ struct Base
 
 struct Derived1 final : Base
 {
-	void do_something()  override
+	void do_something() const override
 	{
 		std::cout << "Derived1 \n";
 	}
-	virtual ~Derived1()
-	{
-		std::cout << "~Derived1 \n";
-	}
+
 };
 
 struct Derived2 final : Base
 {
-	void do_something()  override
+	void do_something() const override
 	{
 		std::cout << "Derived2 \n";
 	}
-	virtual ~Derived2()
-	{
-		std::cout << "~Derived2 \n";
-	}
+
 };
 
 enum class Type
@@ -96,23 +87,38 @@ Base* make_object2(const Type& classType)
 int main()
 {
 
+	//Verion1
+	std::unique_ptr<Base> objectBase = make_object(Type::Base_Type);
+	if (objectBase)
+		objectBase->do_something();
+
+	std::unique_ptr<Base> objectDerived1 = make_object(Type::Derived1_Type);
+
+	if (objectDerived1)
+		objectDerived1->do_something();
+
+	std::unique_ptr<Base> objectDerived2 = make_object(Type::Derived2_Type);
+	if (objectDerived2)
+		objectDerived2->do_something();
+
+
+	//Verion2
 	std::unique_ptr<Base> object = make_object(Type::Base_Type);
 	if (object)
 		object->do_something();
 
-	std::cout << "***************************************** \n";
+	object = make_object(Type::Derived1_Type);
+	if (object)
+		object->do_something();
 
-	 object = make_object(Type::Derived1_Type);
-	object->do_something();
 
-	std::cout << "***************************************** \n";
 	object = make_object(Type::Derived2_Type);
 	if (object)
 		object->do_something();
 
-	std::cout << "***************************************** \n";
 
-	/*auto object2 = make_object2(Type::Base_Type);
+	//Verion3
+	auto object2 = make_object2(Type::Base_Type);
 	if (object2)
 		object2->do_something();
 	delete object2;
@@ -125,6 +131,7 @@ int main()
 	object2 = make_object2(Type::Derived2_Type);
 	if (object2)
 		object2->do_something();
-	delete object2;*/
+	delete object2;
+
 
 }
