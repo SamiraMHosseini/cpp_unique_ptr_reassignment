@@ -1,6 +1,6 @@
 # Understanding unique_ptr reassignment and its impact on dynamically allocated objects
 
-In each step, you are re-assigning a new value to the object variable. The previous value of object will be destroyed and its associated memory will be deallocated, because std::unique_ptr is a unique ownership smart pointer. This means that a std::unique_ptr can only have one owner and ownership can only be transferred by moving the pointer.
+In this code, in each step, we are re-assigning a new value to the object variable. The previous value of object will be destroyed and its associated memory will be deallocated, because std::unique_ptr is a unique ownership smart pointer. This means that a std::unique_ptr can only have one owner and ownership can only be transferred by moving the pointer.
 
 When object is reassigned to a new value, the previous std::unique_ptr object is destroyed, which in turn will destroy the object that it was managing. This ensures that the memory associated with the previous object is properly deallocated and prevents any potential memory leaks.
 
