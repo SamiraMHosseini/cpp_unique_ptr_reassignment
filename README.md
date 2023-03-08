@@ -4,7 +4,7 @@ In each step, you are re-assigning a new value to the object variable. The previ
 
 When object is reassigned to a new value, the previous std::unique_ptr object is destroyed, which in turn will destroy the object that it was managing. This ensures that the memory associated with the previous object is properly deallocated and prevents any potential memory leaks.
 
-# Unique_ptr
+# std::unique_ptr
 std::unique_ptr is a type of smart pointer that implements unique ownership semantics. 
 This means that a std::unique_ptr instance manages a dynamically allocated object and is the sole owner of that object. 
 As a result, only one std::unique_ptr instance can manage a given object at any given time.
