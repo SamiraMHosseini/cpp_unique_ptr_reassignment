@@ -3,7 +3,7 @@ std::unique_ptr is a type of smart pointer that implements unique ownership sema
 This means that a std::unique_ptr instance manages a dynamically allocated object and is the sole owner of that object. 
 As a result, only one std::unique_ptr instance can manage a given object at any given time.
 
-When you #reassign# the value of object in each step of the code, you are changing the ownership of the managed object. 
+When you # reassign# the value of object in each step of the code, you are changing the ownership of the managed object. 
 The previous value of object is destroyed and its associated memory is deallocated, because the std::unique_ptr has a move constructor, which allows you to transfer ownership of the managed object from one std::unique_ptr instance to another.
 
 Here's what happens in each step of the code:
